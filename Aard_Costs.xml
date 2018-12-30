@@ -165,7 +165,7 @@
   >
   </alias>
   <alias
-   match="^potential help$"
+   match="^costs? help$"
    enabled="y"
    regexp="y"
    script="help"
@@ -181,6 +181,7 @@
 <![CDATA[
 require "commas"
 require "gmcphelper"
+require "tprint"
 
 local search = ""
 local which_instinct = ""
@@ -274,7 +275,8 @@ function get_instinct(name, line, args)
 end
 
 function set_trains(name, line, args)
-	my_trains = tonumber(string.gsub(args.trains, ",", ""))
+	args.trains = string.gsub(args.trains, ",", "")
+	my_trains = tonumber(args.trains)
 end
 
 function set_instinct(name, line, args)
@@ -287,7 +289,9 @@ function find_set_instinct()
 		--Note("checking "..i.name)
 		if string.find(string.lower(i.name), string.lower(search)) == 1 then
 			which_instinct = i.name
-			current = i.current
+			if actual then
+				current = tonumber(i.current)
+			end
 			--Note(which_instinct)
 			break
 		end
@@ -297,13 +301,16 @@ function find_set_instinct()
 			--Note("checking "..i.name)
 			if string.find(string.lower(i.name), string.lower(search)) then
 				which_instinct = i.name
-				current = i.current
+				if actual then
+					current = tonumber(i.current)
+				end
 				--Note(which_instinct)
 				break
 			end
 		end
 	end
 	if which_instinct == "" then
+		EnableTriggerGroup("instinct", false)
 		ColourNote("orange", "", " >> ", "silver", "", "No instinct found that matches ", "yellow", "", search, "silver", "", ".")
 		return -- no match to an instinct
 	end
@@ -428,13 +435,20 @@ end
 function help()
 	Note()
 	ColourNote("orange", "", " >> ", "silver", "", "Syntax is: ")
-	ColourNote("white", "", "       potential <#>")
-	ColourNote("white", "", "       potential to <#>")
-	ColourNote("white", "", "       potential <start> <#>")
+	ColourNote("white", "", "       costs help")
+	ColourNote("white", "", "       (potential|mastery <type>|instinct <type>) <#>")
+	ColourNote("white", "", "       (potential|mastery <type>|instinct <type>) to <#>")
+	ColourNote("white", "", "       (potential|mastery <type>|instinct <type>) <start> <#>")
 	ColourNote("silver", "", "        The ", "white", "", "<start>", "silver", "", " variable is optional, otherwise your current potential is used.")
-	ColourNote("white", "", "         e.g. potential 5 ", "silver", "", "Will calculate how much for you to buy 5 potential.")
-	ColourNote("white", "", "         e.g. potential to 100 ", "silver", "", "Will calculate how much for you to increase your potential to 100.")
-	ColourNote("white", "", "         e.g. potential 100 5 ", "silver", "", "Will calculate how much to buy 5 potential if you have 100.")
+	ColourNote("silver", "", "         e.g.", "white", "", " potential 5 ", "silver", "", "Will calculate how much for you to buy 5 potential.")
+	ColourNote("silver", "", "         e.g.", "white", "", " potential to 100 ", "silver", "", "Will calculate how much for you to increase your potential to 100.")
+	ColourNote("silver", "", "         e.g.", "white", "", " potential 100 5 ", "silver", "", "Will calculate how much to buy 5 potential if you have 100.")
+	ColourNote("silver", "", "         e.g.", "white", "", " mastery electric 5 ", "silver", "", "Will calculate how much to buy 5 electric mastery.")
+	ColourNote("silver", "", "         e.g.", "white", "", " mastery electric to 104 ", "silver", "", "Will calculate how much to buy electric mastery from your current amount to 104.")
+	ColourNote("silver", "", "         e.g.", "white", "", " mastery electric 100 5 ", "silver", "", "Will calculate how much to buy 5 electric mastery if you have 100.")
+	ColourNote("silver", "", "         e.g.", "white", "", " instinct dodge 5 ", "silver", "", "Will calculate how much to buy 5 dodge instinct.")
+	ColourNote("silver", "", "         e.g.", "white", "", " instinct dodge to 104 ", "silver", "", "Will calculate how much to buy dodge instinct from your current amount to 104.")
+	ColourNote("silver", "", "         e.g.", "white", "", " instinct dodge 100 5 ", "silver", "", "Will calculate how much to buy 5 dodge instinct if you have 100.")
 	Note()
 end
 
