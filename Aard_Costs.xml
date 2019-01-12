@@ -330,8 +330,8 @@ function set_potential(name, line, args)
 end
 
 function afford_instinct(trains, gold)
-	char_base = gmcp("char.worth")
-	if my_trains >= trains and (char_base.gold + char_base.bank) >= gold then
+	char_worth = gmcp("char.worth")
+	if my_trains >= trains and (char_worth.gold + char_worth.bank) >= gold then
 		return "white", "", " [", "lime", "", "OK", "white", "", "]"
 	else
 		return "white", "", " [", "red", "", "NOK", "white", "", "]"
@@ -346,6 +346,10 @@ function calculate_instinct()
 		to = want
 	else
 		to = current + want
+	end
+	if to > #instinct then
+		ColourNote("orange", "", " >> ", "silver", "", "Invalid instinct cost parameters.")
+		return
 	end
 	if to <= current then
 		ColourNote("orange", "", " >> ", "silver", "", "Your ", "yellow", "", which_instinct, "silver", "", " instinct is already ", "yellow", "", current, "silver", "", "!  Please try again.")
@@ -363,8 +367,8 @@ function calculate_instinct()
 end
 
 function afford_mastery(qp, gold)
-	char_base = gmcp("char.worth")
-	if quest_points >= qp and (char_base.gold + char_base.bank) >= gold then
+	char_worth = gmcp("char.worth")
+	if quest_points >= qp and (char_worth.gold + char_worth.bank) >= gold then
 		return "white", "", " [", "lime", "", "OK", "white", "", "]"
 	else
 		return "white", "", " [", "red", "", "NOK", "white", "", "]"
@@ -384,6 +388,10 @@ function calculate_mastery(name, line, args)
 	else
 		to = current + want
 	end
+	if to > #mastery then
+		ColourNote("orange", "", " >> ", "silver", "", "Invalid mastery cost parameters.")
+		return
+	end
 	if to <= current then
 		ColourNote("orange", "", " >> ", "silver", "", "Your ", "yellow", "", which_mastery, "silver", "", " mastery is already ", "yellow", "", current, "silver", "", "!  Please try again.")
 		return
@@ -400,8 +408,8 @@ function calculate_mastery(name, line, args)
 end
 
 function afford_potential(qp)
-	char_base = gmcp("char.worth")
-	if quest_points >= qp then
+	char_worth = gmcp("char.worth")
+	if tonumber(char_worth.qp) >= tonumber(qp) then
 		return "white", "", " [", "lime", "", "OK", "white", "", "]"
 	else
 		return "white", "", " [", "red", "", "NOK", "white", "", "]"
@@ -417,6 +425,10 @@ function calculate_potential()
 		to = want
 	else
 		to = current + want
+	end
+	if to > #potential then
+		ColourNote("orange", "", " >> ", "silver", "", "Invalid potential cost parameters.")
+		return
 	end
 	if to <= current then
 		ColourNote("orange", "", " >> ", "silver", "", "Your ", "yellow", "", "Potential", "silver", "", " is already ", "yellow", "", current, "silver", "", "!  Please try again.")
