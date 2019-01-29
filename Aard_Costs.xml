@@ -84,7 +84,7 @@
   </trigger>
   <trigger
    enabled="n"
-   match="^You have (?<qp>[\d,]+) qp available for masteries\.$"
+   match="^You have (?<qp>[\d,]+) (total quest points|qp) available for masteries(:|\.)$"
    regexp="y"
    script="calculate_mastery"
    sequence="100"
@@ -105,7 +105,7 @@
   </trigger>
   <trigger
    enabled="n"
-   match="^You have (?<trains>[\d,]+) trains? available for instinct:$"
+   match="^You have (?<trains>[\d,]+) trains? available for instinct[:|\.]$"
    regexp="y"
    script="set_trains"
    sequence="100"
