@@ -1,6 +1,10 @@
 # aard-costs
 Costs for potential, instinct, mastery.<br>
-
+<br>
+ >> Change log: <br>
+    7/19/2019 Fixed regex but that wasn't catching > 2 word skills/spells for instinct. <br>
+    <br>
+    <br>
  >> Syntax is: <br>
        costs help<br>
        (potential|mastery \<type>|instinct \<type>) \<#><br>
