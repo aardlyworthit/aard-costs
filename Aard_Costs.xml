@@ -115,7 +115,7 @@
   </trigger>
   <trigger
    enabled="n"
-   match="^(Level [\s\d:]+|N\/A\s+:\s|\s+)?(?<which>\w+( \w+)?)\s+(?<pct>\d+\%|N\/A)\s+(?<current>\d+)\s+(?<trains>[\d]+)\s+(?<gold>[\d,]+)$"
+   match="^(Level [\s\d:]+|N\/A\s+:\s|\s+)?(?<which>\w+([\s\w]+)?\w+)\s+(?<pct>\d+\%|N\/A)\s+(?<current>\d+)\s+(?<trains>[\d]+)\s+(?<gold>[\d,]+)$"
    regexp="y"
    script="set_instinct"
    sequence="100"
@@ -360,7 +360,7 @@ function calculate_instinct()
 		gold = gold + instinct[i].gold
 	end
 	if actual then
-		ColourNote("orange", "", " >> ", "silver", "", "You need ", "magenta", "", commas(trains), "red", "", " trains", "silver", "", " and ", "magenta", "", commas(gold), "gold", "", " gold", "silver", "", " to increase your ", "yellow", "", which_instinct, "silver", "", " instinct from ", "yellow", "", current, "silver", "", " to ", "yellow", "", to, "silver", "", ".", afford_instinct(trains, gold))
+		ColourNote("orange", "", "\n >> ", "silver", "", "You need ", "magenta", "", commas(trains), "red", "", " trains", "silver", "", " and ", "magenta", "", commas(gold), "gold", "", " gold", "silver", "", " to increase your ", "yellow", "", which_instinct, "silver", "", " instinct from ", "yellow", "", current, "silver", "", " to ", "yellow", "", to, "silver", "", ".", afford_instinct(trains, gold))
 	else
 		ColourNote("orange", "", " >> ", "silver", "", "It would cost ", "magenta", "", commas(trains), "red", "", " trains", "silver", "", " and ", "magenta", "", commas(gold), "gold", "", " gold", "silver", "", " to increase ", "yellow", "", which_instinct, "silver", "", " instinct from ", "yellow", "", current, "silver", "", " to ", "yellow", "", to, "silver", "", ".")
 	end
@@ -401,7 +401,7 @@ function calculate_mastery(name, line, args)
 		gold = gold + mastery[i].gold
 	end
 	if actual then
-		ColourNote("orange", "", " >> ", "silver", "", "You need ", "magenta", "", commas(qp), "red", "", " quest points", "silver", "", " and ", "magenta", "", commas(gold), "gold", "", " gold", "silver", "", " to increase your ", "yellow", "", which_mastery, "silver", "", " mastery from ", "yellow", "", current, "silver", "", " to ", "yellow", "", to, "silver", "", ".", afford_mastery(qp, gold))
+		ColourNote("orange", "", "\n >> ", "silver", "", "You need ", "magenta", "", commas(qp), "red", "", " quest points", "silver", "", " and ", "magenta", "", commas(gold), "gold", "", " gold", "silver", "", " to increase your ", "yellow", "", which_mastery, "silver", "", " mastery from ", "yellow", "", current, "silver", "", " to ", "yellow", "", to, "silver", "", ".", afford_mastery(qp, gold))
 	else
 		ColourNote("orange", "", " >> ", "silver", "", "It would cost ", "magenta", "", commas(qp), "red", "", " quest points", "silver", "", " and ", "magenta", "", commas(gold), "gold", "", " gold", "silver", "", " to increase ", "yellow", "", which_mastery, "silver", "", " mastery from ", "yellow", "", current, "silver", "", " to ", "yellow", "", to, "silver", "", ".")
 	end
@@ -438,7 +438,7 @@ function calculate_potential()
 		qp = qp + potential[i].qp
 	end
 	if actual then
-		ColourNote("orange", "", " >> ", "silver", "", "You need ", "magenta", "", commas(qp), "red", "", " quest points ", "silver", "", "to increase your ", "yellow", "", "Potential", "silver", "", " from ", "yellow", "", current, "silver", "", " to ", "yellow", "", to, "silver", "", ".", afford_potential(qp))
+		ColourNote("orange", "", "\n >> ", "silver", "", "You need ", "magenta", "", commas(qp), "red", "", " quest points ", "silver", "", "to increase your ", "yellow", "", "Potential", "silver", "", " from ", "yellow", "", current, "silver", "", " to ", "yellow", "", to, "silver", "", ".", afford_potential(qp))
 	else
 		ColourNote("orange", "", " >> ", "silver", "", "It would cost ", "magenta", "", commas(qp), "red", "", " quest points ", "silver", "", "to increase ", "yellow", "", "Potential", "silver", "", " from ", "yellow", "", current, "silver", "", " to ", "yellow", "", to, "silver", "", ".")
 	end
